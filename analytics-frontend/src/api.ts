@@ -1,4 +1,5 @@
-const API_BASE = '/api';
+export const SOCKET_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3000' : 'https://open-trace.onrender.com');
+const API_BASE = `${SOCKET_URL}/api`;
 
 export interface SessionData {
   _id: string;

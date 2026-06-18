@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Flame, AlertTriangle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { io } from 'socket.io-client';
-import { fetchSessions, type SessionData } from '../api';
+import { fetchSessions, type SessionData, SOCKET_URL } from '../api';
 
 function timeAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -47,7 +47,7 @@ export default function SessionsList({ selectedSession, onSelectSession, timeRan
       .catch(console.error)
       .finally(() => setLoading(false));
 
-    const socket = io('/', { transports: ['websocket', 'polling'] });
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
     let timeout: ReturnType<typeof setTimeout>;
 
     socket.on('event', (event: any) => {

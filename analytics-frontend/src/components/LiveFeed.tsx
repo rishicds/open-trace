@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { io, type Socket } from 'socket.io-client';
+import { SOCKET_URL } from '../api';
 import { Radio, Pause, Play, Eye, MousePointerClick, ScrollText, Flame, AlertTriangle } from 'lucide-react';
 import type { EventData } from '../api';
 
@@ -24,7 +25,7 @@ export default function LiveFeed() {
   }, [paused]);
 
   useEffect(() => {
-    const socket = io('/', {
+    const socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
     });
     socketRef.current = socket;

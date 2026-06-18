@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Activity, Users, MousePointerClick, Timer, Flame, BarChart3 } from 'lucide-react';
 import { io } from 'socket.io-client';
-import { fetchMetrics, type MetricsData } from '../api';
+import { fetchMetrics, type MetricsData, SOCKET_URL } from '../api';
 import type { TimeRange } from '../pages/DashboardPage';
 
 interface Props {
@@ -31,7 +31,7 @@ export default function MetricsBar({ timeRange }: Props) {
 
     fetchMetricsData();
 
-    const socket = io('/', { transports: ['websocket', 'polling'] });
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
     let timeout: ReturnType<typeof setTimeout>;
 
     socket.on('event', (event: any) => {
