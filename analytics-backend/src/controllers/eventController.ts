@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { Event } from '../models/Event.js';
 import { Session } from '../models/Session.js';
+import { normalizePageUrl } from '../utils/pageUrl.js';
 import type { Request, Response } from 'express';
 import type { Server } from 'socket.io';
 import { UAParser } from 'ua-parser-js';
@@ -41,6 +42,7 @@ export async function ingestEvents(req: Request, res: Response) {
       if (result.success) {
         validEvents.push({
           ...result.data,
+          page_url: normalizePageUrl(result.data.page_url),
           timestamp: new Date(result.data.timestamp),
           received_at: new Date(),
         });

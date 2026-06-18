@@ -1,4 +1,5 @@
 import { Event } from '../models/Event.js';
+import { normalizePageUrl, pageUrlMatchRegex } from '../utils/pageUrl.js';
 import type { Request, Response } from 'express';
 
 export async function getHeatmap(req: Request, res: Response) {
@@ -12,9 +13,10 @@ export async function getHeatmap(req: Request, res: Response) {
     const from = req.query.from ? new Date(req.query.from as string) : undefined;
     const to = req.query.to ? new Date(req.query.to as string) : undefined;
     const type = (req.query.type as string) || 'all';
+    const normalizedUrl = normalizePageUrl(url);
 
     const filter: Record<string, any> = {
-      page_url: url,
+      page_url: { $regex: pageUrlMatchRegex(normalizedUrl) },
       event_type: { $in: ['click', 'rage_click', 'dead_click'] },
     };
 
@@ -39,7 +41,7 @@ export async function getHeatmap(req: Request, res: Response) {
       .map(e => ({ x: e.x!, y: e.y!, sub_type: e.sub_type || null }));
 
     res.json({
-      url,
+      url: normalizedUrl,
       total_clicks: points.length,
       points,
     });
@@ -52,9 +54,12 @@ export async function getHeatmap(req: Request, res: Response) {
 // Get distinct page URLs for the heatmap URL selector
 export async function getDistinctUrls(_req: Request, res: Response) {
   try {
-    const urls = await Event.distinct('page_url', {
+    const rawUrls = await Event.distinct('page_url', {
       event_type: { $in: ['click', 'rage_click', 'dead_click', 'page_view'] },
     });
+    const urls = [...new Set(rawUrls.map(normalizePageUrl))].sort((a, b) =>
+      a.localeCompare(b)
+    );
     res.json({ urls });
   } catch (err) {
     console.error('[Heatmap] Distinct URLs error:', err);

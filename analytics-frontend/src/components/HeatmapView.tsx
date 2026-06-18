@@ -17,9 +17,14 @@ export default function HeatmapView({ timeRange }: Props) {
   const [loading, setLoading] = useState(false);
 
   const getIframeSrc = (url: string) => {
-    if (url.startsWith('http')) return url;
     const base = baseUrl.replace(/\/$/, '');
-    return `${base}${url.startsWith('/') ? url : '/' + url}`;
+    try {
+      const pathname = new URL(url).pathname || '/';
+      return `${base}${pathname}`;
+    } catch {
+      if (url.startsWith('http')) return url;
+      return `${base}${url.startsWith('/') ? url : '/' + url}`;
+    }
   };
   const [scale, setScale] = useState(1);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -45,11 +50,37 @@ export default function HeatmapView({ timeRange }: Props) {
   useEffect(() => {
     fetchDistinctUrls()
       .then((data) => {
-        setUrls(data.urls);
-        if (data.urls.length > 0) setSelectedUrl(data.urls[0]!);
+        let unique = [...new Set(data.urls)];
+        try {
+          const baseOrigin = new URL(baseUrl).origin;
+          const matching = unique.filter((url) => {
+            try {
+              return new URL(url).origin === baseOrigin;
+            } catch {
+              return false;
+            }
+          });
+          if (matching.length > 0) unique = matching;
+        } catch {
+          // keep all URLs if baseUrl is invalid
+        }
+
+        const byPath = new Map<string, string>();
+        for (const url of unique) {
+          try {
+            const path = new URL(url).pathname || '/';
+            if (!byPath.has(path)) byPath.set(path, url);
+          } catch {
+            if (!byPath.has(url)) byPath.set(url, url);
+          }
+        }
+        unique = [...byPath.values()].sort((a, b) => a.localeCompare(b));
+
+        setUrls(unique);
+        if (unique.length > 0) setSelectedUrl(unique[0]!);
       })
       .catch(console.error);
-  }, []);
+  }, [baseUrl]);
 
   useEffect(() => {
     if (!selectedUrl) return;

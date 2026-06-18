@@ -38,12 +38,27 @@
   var sessionId = getOrCreateSessionId();
   var queue = [];
 
+  function normalizePageUrl(href) {
+    try {
+      var u = new URL(href);
+      u.hash = '';
+      u.search = '';
+      var pathname = u.pathname || '/';
+      if (pathname.length > 1 && pathname.charAt(pathname.length - 1) === '/') {
+        pathname = pathname.slice(0, -1);
+      }
+      return u.origin + pathname;
+    } catch (e) {
+      return href;
+    }
+  }
+
   // ─── Event Queue ────────────────────────────────────────────────────
   function enqueue(event) {
     queue.push({
       session_id: sessionId,
       timestamp: new Date().toISOString(),
-      page_url: window.location.href,
+      page_url: normalizePageUrl(window.location.href),
       event_type: event.event_type,
       x: event.x,
       y: event.y,
