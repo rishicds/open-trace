@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Outlet, Link } from 'react-router-dom';
 import { MessageCircle, Share2, Globe } from 'lucide-react';
 

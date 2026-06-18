@@ -264,10 +264,8 @@ export default function LandingPage() {
                   <div className="p-6 text-sm font-mono text-gray-300 overflow-x-auto leading-relaxed">
                     <code>
                       <span className="text-gray-500">&lt;!-- Paste this snippet in your &lt;head&gt; --&gt;</span>{'\n'}
-                      <span className="text-pink-400">&lt;script</span> <span className="text-blue-400">src</span>=<span className="text-green-400">"https://cdn.trace.com/tracker.js"</span> <span className="text-blue-400">defer</span><span className="text-pink-400">&gt;&lt;/script&gt;</span>{'\n'}
-                      <span className="text-pink-400">&lt;script&gt;</span>{'\n'}
-                      {'  '}window.<span className="text-blue-400">trace</span>.init(<span className="text-green-400">'YOUR_WORKSPACE_ID'</span>);{'\n'}
-                      <span className="text-pink-400">&lt;/script&gt;</span>
+                      <span className="text-pink-400">&lt;script&gt;</span>window.<span className="text-blue-400">CF_CONFIG</span> = {'{'} endpoint: <span className="text-green-400">'https://open-trace.onrender.com'</span> {'}'};<span className="text-pink-400">&lt;/script&gt;</span>{'\n'}
+                      <span className="text-pink-400">&lt;script</span> <span className="text-blue-400">src</span>=<span className="text-green-400">"https://open-trace-kappa.vercel.app/tracker.js"</span> <span className="text-blue-400">defer</span><span className="text-pink-400">&gt;&lt;/script&gt;</span>
                     </code>
                   </div>
                 </div>
@@ -485,10 +483,10 @@ export default function LandingPage() {
                 <code>
                   <span className="text-pink-400">&lt;script&gt;</span>{'\n'}
                   {'  '}window.<span className="text-blue-400">CF_CONFIG</span> = {'{'}{'\n'}
-                  {'    '}endpoint: <span className="text-green-400">'https://api.trace.com'</span>{'\n'}
+                  {'    '}endpoint: <span className="text-green-400">'https://open-trace.onrender.com'</span>{'\n'}
                   {'  '}{'}'};{'\n'}
                   <span className="text-pink-400">&lt;/script&gt;</span>{'\n'}
-                  <span className="text-pink-400">&lt;script</span> <span className="text-blue-400">src</span>=<span className="text-green-400">"https://cdn.trace.com/tracker.js"</span> <span className="text-blue-400">defer</span><span className="text-pink-400">&gt;&lt;/script&gt;</span>
+                  <span className="text-pink-400">&lt;script</span> <span className="text-blue-400">src</span>=<span className="text-green-400">"https://open-trace-kappa.vercel.app/tracker.js"</span> <span className="text-blue-400">defer</span><span className="text-pink-400">&gt;&lt;/script&gt;</span>
                 </code>
               </pre>
             </div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { BarChart3, LineChart, PieChart, Users, ArrowUpRight, ArrowDownRight, Activity, GitMerge } from 'lucide-react';
+
+import { BarChart3, LineChart, Users, ArrowUpRight, ArrowDownRight, Activity, GitMerge } from 'lucide-react';
 
 export default function Dashboard() {
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { PlayCircle, MousePointerClick, GitMerge, Activity, Zap } from 'lucide-react';
 
 export default function Features() {
