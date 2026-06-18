@@ -264,5 +264,6 @@ export default function HeatmapView({ timeRange }: Props) {
         </div>
       </div>
     </div>
+    </div>
   );
 }
