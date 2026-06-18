@@ -533,7 +533,10 @@ export default function LandingPage() {
             </svg>
             <span className="text-2xl font-playfair italic tracking-tight">Trace</span>
           </div>
-          <p className="text-sm font-medium opacity-50">© 2026 Trace Analytics. All rights reserved.</p>
+          <div className="flex flex-col items-center md:items-center gap-1 text-sm font-medium opacity-50">
+            <p>© 2026 Trace Analytics. All rights reserved.</p>
+            <p>Made with ❤️ by <a href="https://rishipaul.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline">Rishi</a></p>
+          </div>
           <div className="flex gap-6 text-sm font-medium">
             <a href="#" className="opacity-50 hover:opacity-100 transition-opacity">Privacy</a>
             <a href="#" className="opacity-50 hover:opacity-100 transition-opacity">Terms</a>

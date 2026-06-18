@@ -44,7 +44,10 @@ export default function PublicLayout() {
 
       {/* Footer */}
       <footer className="py-12 px-8 md:px-28 border-t border-border/20 flex flex-col md:flex-row items-center justify-between gap-6">
-        <p className="text-muted-foreground text-sm">© 2026 ClickBaitr. All rights reserved.</p>
+        <div className="flex flex-col items-center md:items-start gap-1 text-muted-foreground text-sm">
+          <p>© 2026 ClickBaitr. All rights reserved.</p>
+          <p>Made with ❤️ by <a href="https://rishipaul.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors underline">Rishi</a></p>
+        </div>
         <div className="flex items-center gap-6 text-muted-foreground text-sm">
           <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
           <a href="#" className="hover:text-foreground transition-colors">Terms</a>

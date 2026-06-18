@@ -97,16 +97,16 @@ export default function Landing() {
               A fictional SaaS platform designed to generate real user interaction data. Click around to see session replays, heatmaps, and funnel analytics in action.
             </p>
 
-            <div className="liquid-glass rounded-full p-2 max-w-lg w-full flex items-center mt-8">
+            <div className="liquid-glass rounded-2xl sm:rounded-full p-2 max-w-lg w-full flex flex-col sm:flex-row items-center mt-8 gap-2 sm:gap-0">
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="flex-1 bg-transparent border-none outline-none text-foreground px-4 placeholder:text-muted-foreground"
+                className="flex-1 w-full bg-transparent border-none outline-none text-foreground px-4 py-2 sm:py-0 placeholder:text-muted-foreground text-center sm:text-left"
               />
               <motion.button 
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-foreground text-background font-medium rounded-full px-8 py-3 cursor-pointer"
+                className="bg-foreground text-background font-medium rounded-xl sm:rounded-full px-8 py-3 w-full sm:w-auto cursor-pointer whitespace-nowrap text-sm sm:text-base"
               >
                 START FREE TRIAL
               </motion.button>
