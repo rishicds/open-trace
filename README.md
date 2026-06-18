@@ -1,6 +1,6 @@
-# CausalFunnel Analytics Platform
+# Trace Analytics Platform
 
-This repository contains the submission for the CausalFunnel Full Stack Engineer role assignment. It is a full-stack user analytics application that tracks interactions on a webpage (page views, clicks, rage clicks, scroll depth, etc.) and visualizes them on a comprehensive React dashboard.
+It is a full-stack user analytics application that tracks interactions on a webpage (page views, clicks, rage clicks, scroll depth, etc.) and visualizes them on a comprehensive React dashboard.
 
 ## Overview
 
