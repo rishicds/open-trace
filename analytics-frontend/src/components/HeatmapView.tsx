@@ -13,7 +13,14 @@ export default function HeatmapView({ timeRange }: Props) {
   const [points, setPoints] = useState<HeatmapPoint[]>([]);
   const [totalClicks, setTotalClicks] = useState(0);
   const [filterType, setFilterType] = useState<'all' | 'rage' | 'dead'>('all');
+  const [baseUrl, setBaseUrl] = useState('https://open-trace-819b.vercel.app');
   const [loading, setLoading] = useState(false);
+
+  const getIframeSrc = (url: string) => {
+    if (url.startsWith('http')) return url;
+    const base = baseUrl.replace(/\/$/, '');
+    return `${base}${url.startsWith('/') ? url : '/' + url}`;
+  };
   const [scale, setScale] = useState(1);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -140,9 +147,18 @@ export default function HeatmapView({ timeRange }: Props) {
       <div className="flex flex-col md:flex-row h-full">
         {/* Sidebar */}
         <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-100 bg-white p-3 md:p-6 shrink-0 z-10 flex flex-col min-h-0">
-          <div className="hidden md:flex items-center gap-3 mb-6 shrink-0">
-            <Map className="text-[#3B3DFF]" />
-            <h2 className="text-xl font-bold font-playfair">Target Page</h2>
+          <div className="hidden md:flex flex-col gap-4 mb-6 shrink-0">
+            <div className="flex items-center gap-3">
+              <Map className="text-[#3B3DFF]" />
+              <h2 className="text-xl font-bold font-playfair">Target Page</h2>
+            </div>
+            <input 
+              type="url" 
+              value={baseUrl}
+              onChange={(e) => setBaseUrl(e.target.value)}
+              placeholder="https://your-site.com"
+              className="text-xs p-2 rounded-lg border border-gray-200 outline-none focus:border-[#3B3DFF] font-medium text-gray-600"
+            />
           </div>
           
           <div className="flex-1 overflow-x-auto md:overflow-y-auto custom-scrollbar md:pr-2 flex flex-row md:flex-col gap-2 md:gap-2">
@@ -245,7 +261,7 @@ export default function HeatmapView({ timeRange }: Props) {
               >
                 <div className="relative rounded-xl overflow-hidden border border-gray-100" style={{ width: WIDTH, height: HEIGHT }}>
                   <iframe 
-                    src={selectedUrl}
+                    src={getIframeSrc(selectedUrl)}
                     className="absolute inset-0"
                     style={{ width: `${WIDTH}px`, height: `${HEIGHT}px`, border: 'none', pointerEvents: 'none' }}
                     title="Target Page Background"
