@@ -1,6 +1,6 @@
-# CausalFunnel Analytics Platform
+# Trace Analytics Platform
 
-This repository contains the submission for the CausalFunnel Full Stack Engineer role assignment. It is a full-stack user analytics application that tracks interactions on a webpage (page views, clicks, rage clicks, scroll depth, etc.) and visualizes them on a comprehensive React dashboard.
+It is a full-stack user analytics application that tracks interactions on a webpage (page views, clicks, rage clicks, scroll depth, etc.) and visualizes them on a comprehensive React dashboard.
 
 ## Overview
 
@@ -67,6 +67,5 @@ The platform consists of:
 ## Assumptions & Trade-offs
 
 1. **Session Grouping**: A session is defined simply by a `session_id` generated on the client and stored in `localStorage`. If a user clears their storage, they get a new session. We assume that sessions end after an extended period of inactivity, which could be enforced by setting an expiry on the localStorage key.
-2. **Canvas Replay vs DOM Snapshotting**: For the "Session Replay", rather than using heavy DOM-snapshotting tools like rrweb (which can be very invasive and costly to store), the replay feature reconstructs user intent by replaying their mouse paths and clicks over a blank canvas representing the generic viewport. This is significantly cheaper to scale.
-3. **Database Scalability**: Events are bulk-inserted and sessions are upserted. In a true enterprise environment, we would place a message queue (like Kafka or Redis) in front of the MongoDB ingestion to prevent write bottlenecks during massive traffic spikes.
-4. **Time Filters**: For simplicity, time filters use local browser time. In a multi-timezone deployment, we would strictly standardize on UTC for both the UI date pickers and backend aggregations.
+2. **Database Scalability**: Events are bulk-inserted and sessions are upserted. In a true enterprise environment, we would place a message queue (like Kafka or Redis) in front of the MongoDB ingestion to prevent write bottlenecks during massive traffic spikes.
+3. **Time Filters**: For simplicity, time filters use local browser time. In a multi-timezone deployment, we would strictly standardize on UTC for both the UI date pickers and backend aggregations.
